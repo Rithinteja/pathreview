@@ -24,11 +24,11 @@ Several test and evaluation flows expect a sample profile at `tests/fixtures/sam
 
 ## Week 8 — Reproduction & solution planning
 
-**Reproduction commit link:** This reproduction note is introduced by the current commit; its permanent GitHub link will be added in the planning commit.
+**Reproduction commit link:** https://github.com/Rithinteja/pathreview/commit/80325449f07e0955296ea4773fb816ec3cfc5cd3
 
 **Reproduction summary:** I reproduced the missing-fixture gap from the repository root by checking `tests/fixtures/sample_profiles/basic_profile.json` and attempting to read it with `pathlib.Path.read_text()`. The path reported `exists=False`, and the read failed with `FileNotFoundError`, confirming that the benchmark profile referenced by `scripts/run_evals.py` is not available locally.
 
-**PLAN.md link:** Will be added after `PLAN.md` is introduced in the next commit.
+**PLAN.md link:** https://github.com/Rithinteja/pathreview/blob/test/106-restore-sample-profile-fixture/PLAN.md
 
 **Walkthrough video (recommended):** Not recorded (recommended, not graded).
 
