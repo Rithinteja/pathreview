@@ -21,3 +21,15 @@ Several test and evaluation flows expect a sample profile at `tests/fixtures/sam
 - **Tier fit:** I chose a Tier 1 issue because this is my first contribution to this large codebase. The work is localized to one new fixture file, does not require an architectural change, and the issue estimates only 1–2 hours of implementation work.
 - **Codebase readiness:** I confirmed that the target fixture is absent, found the reference to sample profiles in `scripts/run_evals.py`, reviewed the profile fields in `api/schemas/profile.py`, and read the existing fixture and test patterns in `tests/conftest.py` and `tests/unit/test_review_service.py`.
 - **Scope and time:** I checked the issue comments and the cohort ledger's claim count. Claims are non-exclusive, the issue has no listed blockers or unresolved dependencies, and the small file scope is realistic to complete and test before the Week 9 deadline.
+
+## Week 8 — Reproduction & solution planning
+
+**Reproduction commit link:** This reproduction note is introduced by the current commit; its permanent GitHub link will be added in the planning commit.
+
+**Reproduction summary:** I reproduced the missing-fixture gap from the repository root by checking `tests/fixtures/sample_profiles/basic_profile.json` and attempting to read it with `pathlib.Path.read_text()`. The path reported `exists=False`, and the read failed with `FileNotFoundError`, confirming that the benchmark profile referenced by `scripts/run_evals.py` is not available locally.
+
+**PLAN.md link:** Will be added after `PLAN.md` is introduced in the next commit.
+
+**Walkthrough video (recommended):** Not recorded (recommended, not graded).
+
+**Blockers or open questions:** `scripts/run_evals.py` currently contains only a TODO for loading benchmark profiles, so the exact JSON contract is not yet enforced in code. I will use the issue requirements and the existing profile model as the starting point, then make the fixture structure explicit in a focused validation test.
