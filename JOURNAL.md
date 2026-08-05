@@ -62,3 +62,27 @@ Several test and evaluation flows expect a sample profile at `tests/fixtures/sam
 - [x] `make test-unit` passes under the course's pre-existing-failure rule: the same 53 existing tests fail before and after the change, and the passing count increases from 375 to 376 because the new test passes.
 
 **Draft PR feedback received from:** none
+
+## Week 10 — Iteration & reflection
+
+### Reviewer feedback
+
+**Feedback received:** [ ] Yes  [x] No — still awaiting review
+
+**Summary of feedback:** No reviewer or maintainer feedback has arrived on PR #858. This matches the Summer 2026 course note that reviewer feedback is not being provided, so there were no requested changes to document.
+
+**How you responded:** No review response or follow-up code changes were needed. I left the pull request open and ready for review with the fixture schema decision and manual verification steps clearly documented for any future reviewer.
+
+---
+
+### Reflection
+
+**What was harder than you expected?** Defining the JSON shape was harder than simply creating the missing file because `scripts/run_evals.py` only contains a TODO and does not specify a contract. I compared the issue requirements with `core/models/profile.py`, `api/schemas/profile.py`, and the existing fixtures in `tests/conftest.py`, then chose a small nested structure and documented that decision in `test_basic_profile_fixture_has_expected_shape`.
+
+**What did you learn about working in a large codebase?** I learned that the source of truth can be spread across an issue, models, schemas, tests, and unfinished scripts instead of living in one place. Tracing those references before editing helped me keep issue #106 limited to `tests/fixtures/sample_profiles/basic_profile.json` and its validation test instead of expanding the work into implementing the entire evaluation runner.
+
+**How did AI tools help — and where did they fall short?** AI tools helped me locate relevant files, compare the profile fields, organize the risks in `PLAN.md`, and turn the fixture requirements into concrete validation checks. They could not determine an authoritative schema that the repository itself does not define, and they could not replace running the project commands, so I still had to reproduce the `FileNotFoundError`, inspect the actual code, and compare the 53 unit-test failures and 182 lint findings before and after my change.
+
+**What would you do differently if you started over?** I would run the full `make test-unit` and `make check` baseline at the start of Week 7 instead of waiting until implementation, because that would make the repository's pre-existing failures less surprising. I would also open the pull request earlier in Week 9 so the schema choice for the `resume` and `repositories` fields had more time to receive feedback.
+
+**What are you most proud of from this module?** I am most proud that I turned a vague missing-fixture issue into a deterministic sample portfolio and a focused test that checks meaningful edge cases without depending on exact sample wording. I also documented the unchanged test and lint baselines clearly in JOURNAL.md and PR #858, which makes the contribution easier for another developer to evaluate.
