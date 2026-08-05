@@ -33,3 +33,32 @@ Several test and evaluation flows expect a sample profile at `tests/fixtures/sam
 **Walkthrough video (recommended):** Not recorded (recommended, not graded).
 
 **Blockers or open questions:** `scripts/run_evals.py` currently contains only a TODO for loading benchmark profiles, so the exact JSON contract is not yet enforced in code. I will use the issue requirements and the existing profile model as the starting point, then make the fixture structure explicit in a focused validation test.
+
+## Week 9 — Solution building & PR submission
+
+### Check-in 1 (mid-week)
+
+**Current progress:** I completed the first three implementation tasks from `PLAN.md`: defined the fixture contract, created `tests/fixtures/sample_profiles/basic_profile.json` with a fictional resume and two repositories, and added `tests/unit/test_basic_profile_fixture.py`. The focused test loads the JSON from a path anchored to the test file and verifies the required fields, nonblank content, repository count, and unique repository names.
+
+**Next steps:** Run the JSON parser, focused test, `make test-unit`, and `make check`; compare the full-suite results with the pre-change baseline; then push the implementation and open a ready-for-review pull request with manual verification steps.
+
+**Blockers:** The benchmark loader in `scripts/run_evals.py` is still a TODO, so it does not define an authoritative JSON schema. I addressed that uncertainty by documenting a minimal contract in the focused test and calling out the field-shape decision for reviewers instead of expanding the issue into evaluation-runner work.
+
+---
+
+### Check-in 2 (end of week)
+
+**PR link:** https://github.com/ascherj/pathreview/pull/858
+
+**Branch:** `test/106-restore-sample-profile-fixture`
+
+**What you built:** I restored the missing shared sample portfolio with a fictional GitHub username, a populated resume, and exactly two realistic repositories. I also added a focused unit test that loads the fixture independently of the working directory and rejects missing, malformed, incomplete, blank, or duplicate repository data.
+
+**Tests added or updated:** Added `tests/unit/test_basic_profile_fixture.py`. Its `test_basic_profile_fixture_has_expected_shape` test covers JSON loading, the required `github_username` and resume fields, exactly two repositories, nonblank repository metadata and README content, and unique repository names.
+
+**Self-review confirmation:**
+
+- [x] `make check` passes under the course's pre-existing-failure rule: the repository reports the same 182 existing Ruff findings before and after the change, while the new test file passes Ruff, Black, and the commit's mypy hook.
+- [x] `make test-unit` passes under the course's pre-existing-failure rule: the same 53 existing tests fail before and after the change, and the passing count increases from 375 to 376 because the new test passes.
+
+**Draft PR feedback received from:** none
